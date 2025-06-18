@@ -1,0 +1,22 @@
+[package]
+name = "sol-test"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+solana-client = "2.2.7"
+dotenvy = "0.15.7"
+tokio = "1.45.1"
+anyhow = "1.0.98"
+env_logger = "0.11.8"
+yellowstone-grpc-client = "6.1.0"
+maplit = "1.0.2"
+solana-sdk = "2.2.2"
+solana-account-decoder-client-types = "2.2.7"
+yellowstone-grpc-proto = "6.1.0"
+log = "0.4.27"
+futures = "0.3.31"
+tonic = "0.12.3"
+yellowstone-vixen-raydium-amm-v4-parser = "0.3.0"
+solana-transaction-status = "2.2.7"
+solana-message = "2.2.0"
