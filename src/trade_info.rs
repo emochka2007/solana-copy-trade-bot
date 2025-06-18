@@ -8,14 +8,14 @@ use yellowstone_grpc_proto::geyser::SubscribeUpdateTransaction;
 
 #[derive(Clone, Debug)]
 pub struct TokenAmountList {
-    token_pre_amount: f64,
-    token_post_amount: f64,
+    pub token_pre_amount: f64,
+    pub token_post_amount: f64,
 }
 
 #[derive(Clone, Debug)]
 pub struct SolAmountList {
-    sol_pre_amount: f64,
-    sol_post_amount: f64,
+    pub sol_pre_amount: f64,
+    pub sol_post_amount: f64,
 }
 
 #[derive(Clone, Debug)]
