@@ -1,13 +1,14 @@
-use futures_util::stream::FuturesOrdered;
 use futures_util::StreamExt;
+use futures_util::stream::FuturesOrdered;
 use solana_client::nonblocking::rpc_client::RpcClient;
 use solana_client::rpc_config::RpcAccountInfoConfig;
 use solana_sdk::account::Account;
 use solana_sdk::commitment_config::CommitmentConfig;
 use solana_sdk::pubkey::Pubkey;
+use std::sync::Arc;
 
 pub async fn get_multiple_account_data(
-    rpc_client: &RpcClient,
+    rpc_client: &Arc<RpcClient>,
     keys: &[Pubkey],
 ) -> anyhow::Result<Vec<Option<Account>>> {
     let mut tasks = FuturesOrdered::new();
@@ -33,4 +34,11 @@ pub async fn get_multiple_account_data(
         accounts_vec.extend(result?);
     }
     Ok(accounts_vec)
+}
+#[derive(Debug)]
+pub enum SwapDirection {
+    /// Input token pc, output token coin
+    PC2Coin,
+    /// Input token coin, output token pc
+    Coin2PC,
 }
