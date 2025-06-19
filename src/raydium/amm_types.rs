@@ -299,7 +299,7 @@ impl RaydiumStatus {
 }
 
 use crate::raydium::serum_types::MarketState;
-use crate::raydium::types::AmmInfo;
+use crate::raydium::types::{AmmInfo, AmmKeys, MarketKeys};
 use num_derive::FromPrimitive;
 use solana_program::{decode_error::DecodeError, msg, program_error::PrintProgramError};
 use thiserror::Error;
@@ -738,3 +738,28 @@ impl From<LiquidityStateV4> for RaydiumAmmInfo {
 }
 
 impl_loadable!(LiquidityStateV4);
+#[derive(Debug)]
+pub struct RaydiumAmmQuote {
+    /// The address of the amm pool
+    pub market: Pubkey,
+    /// The input mint
+    pub input_mint: Pubkey,
+    /// The output mint,
+    pub output_mint: Pubkey,
+    /// The amount specified
+    pub amount: u64,
+    /// The other amount
+    pub other_amount: u64,
+    /// The other amount with slippage
+    pub other_amount_threshold: u64,
+    /// Whether the amount specified is in terms of the input token
+    pub amount_specified_is_input: bool,
+    /// The input mint decimals
+    pub input_mint_decimals: u8,
+    /// The output mint decimals
+    pub output_mint_decimals: u8,
+    /// Amm keys
+    pub amm_keys: AmmKeys,
+    /// Market keys
+    pub market_keys: MarketKeys,
+}

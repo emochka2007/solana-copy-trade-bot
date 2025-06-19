@@ -14,6 +14,7 @@ use std::str::FromStr;
 use std::sync::Arc;
 
 pub mod amm;
+mod amm_math;
 mod amm_types;
 pub mod api_v3;
 mod math;
