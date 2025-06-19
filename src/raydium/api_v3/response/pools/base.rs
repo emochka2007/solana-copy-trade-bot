@@ -1,5 +1,5 @@
-use crate::api_v3::response::token::ApiV3Token;
-use crate::api_v3::serde_helpers::{field_as_string, option_field_as_string};
+use crate::raydium::api_v3::response::token::ApiV3Token;
+use crate::raydium::api_v3::serde_helpers::{field_as_string, option_field_as_string};
 
 use serde::{Deserialize, Serialize};
 use solana_sdk::pubkey::Pubkey;

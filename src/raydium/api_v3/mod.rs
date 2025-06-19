@@ -6,6 +6,7 @@ use anyhow::Context;
 pub use client::ApiV3Client;
 use response::ApiV3Response;
 use serde::{Deserialize, Serialize};
+use solana_client::client_error::reqwest;
 
 pub type ApiV3Result<T> = Result<ApiV3Response<T>, anyhow::Error>;
 

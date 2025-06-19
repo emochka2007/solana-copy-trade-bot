@@ -1,4 +1,3 @@
-use crate::engine::Engine;
 use crate::gen_engine;
 use crate::target_list::TargetList;
 use crate::trade_info::{TradeInfoFromToken, TradeType};
@@ -21,7 +20,7 @@ pub async fn decode_instruction(
         match trade_info.trade_type {
             TradeType::Buy => {
                 info!("Buy transaction detected: {:?}", trade_info.signature);
-                gen_engine::Engine::buy_token(trade_info).await.unwrap();
+                crate::raydium::swap_in(trade_info).await;
             }
             TradeType::Sell => {
                 debug!("Sell transaction detected: {:?}", trade_info.signature)

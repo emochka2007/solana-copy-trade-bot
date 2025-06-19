@@ -1,6 +1,7 @@
 use super::response::{ApiV3PoolsPage, ApiV3Token, ApiV3TokenList};
-use super::{handle_response_or_error, PoolFetchParams};
+use super::{PoolFetchParams, handle_response_or_error};
 use serde::de::DeserializeOwned;
+use solana_client::client_error::reqwest;
 use solana_sdk::pubkey::Pubkey;
 
 #[derive(Clone, Debug)]
