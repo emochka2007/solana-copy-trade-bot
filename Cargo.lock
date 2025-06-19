@@ -1329,6 +1329,26 @@ dependencies = [
 ]
 
 [[package]]
+name = "enumflags2"
+version = "0.6.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "83c8d82922337cd23a15f88b70d8e4ef5f11da38dd7cdb55e84dd5de99695da0"
+dependencies = [
+ "enumflags2_derive",
+]
+
+[[package]]
+name = "enumflags2_derive"
+version = "0.6.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "946ee94e3dbf58fdd324f9ce245c7b238d46a66f00e86a020b71996349e46cce"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 1.0.109",
+]
+
+[[package]]
 name = "env_filter"
 version = "0.1.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1773,6 +1793,12 @@ name = "hermit-abi"
 version = "0.5.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "fc0fef456e4baa96da950455cd02c081ca953b141298e41db3fc7e36b1da849c"
+
+[[package]]
+name = "hex"
+version = "0.4.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7f24254aa9a54b5c858eaee2f5bccdb46aaf0e486a595ed5fd8f86ba55232a70"
 
 [[package]]
 name = "histogram"
@@ -3509,6 +3535,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "28d3b2b1366ec20994f1fd18c3c594f05c5dd4bc44d8bb0c1c632c8d6829481f"
 
 [[package]]
+name = "safe-transmute"
+version = "0.11.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3944826ff8fa8093089aba3acb4ef44b9446a99a16f3bf4e74af3f77d340ab7d"
+
+[[package]]
 name = "safe_arch"
 version = "0.7.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3780,21 +3812,32 @@ name = "sol-test"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "arrayref",
+ "borsh 1.5.7",
+ "bytemuck",
  "dotenvy",
+ "enumflags2",
  "env_logger 0.11.8",
  "futures",
+ "futures-util",
  "log",
  "maplit",
- "solana-account-decoder-client-types",
+ "num-derive",
+ "num-traits",
+ "num_enum",
+ "safe-transmute",
+ "serde",
+ "serde_json",
+ "solana-account-decoder",
  "solana-client",
- "solana-message",
+ "solana-program",
  "solana-sdk",
- "solana-transaction-status",
+ "spl-token 8.0.0",
+ "thiserror 2.0.12",
  "tokio",
- "tonic",
+ "uint",
  "yellowstone-grpc-client",
- "yellowstone-grpc-proto 6.1.0",
- "yellowstone-vixen-raydium-amm-v4-parser",
+ "yellowstone-grpc-proto",
 ]
 
 [[package]]
@@ -3846,7 +3889,7 @@ dependencies = [
  "solana-slot-hashes",
  "solana-slot-history",
  "solana-sysvar",
- "spl-token",
+ "spl-token 7.0.0",
  "spl-token-2022 7.0.0",
  "spl-token-group-interface",
  "spl-token-metadata-interface",
@@ -5863,7 +5906,7 @@ dependencies = [
  "solana-transaction-status-client-types",
  "spl-associated-token-account",
  "spl-memo",
- "spl-token",
+ "spl-token 7.0.0",
  "spl-token-2022 7.0.0",
  "spl-token-group-interface",
  "spl-token-metadata-interface",
@@ -6020,7 +6063,7 @@ dependencies = [
  "num-traits",
  "solana-program",
  "spl-associated-token-account-client",
- "spl-token",
+ "spl-token 7.0.0",
  "spl-token-2022 6.0.0",
  "thiserror 1.0.69",
 ]
@@ -6181,6 +6224,34 @@ dependencies = [
 ]
 
 [[package]]
+name = "spl-token"
+version = "8.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "053067c6a82c705004f91dae058b11b4780407e9ccd6799dc9e7d0fab5f242da"
+dependencies = [
+ "arrayref",
+ "bytemuck",
+ "num-derive",
+ "num-traits",
+ "num_enum",
+ "solana-account-info",
+ "solana-cpi",
+ "solana-decode-error",
+ "solana-instruction",
+ "solana-msg",
+ "solana-program-entrypoint",
+ "solana-program-error",
+ "solana-program-memory",
+ "solana-program-option",
+ "solana-program-pack",
+ "solana-pubkey",
+ "solana-rent",
+ "solana-sdk-ids",
+ "solana-sysvar",
+ "thiserror 2.0.12",
+]
+
+[[package]]
 name = "spl-token-2022"
 version = "6.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -6197,7 +6268,7 @@ dependencies = [
  "spl-elgamal-registry",
  "spl-memo",
  "spl-pod",
- "spl-token",
+ "spl-token 7.0.0",
  "spl-token-confidential-transfer-ciphertext-arithmetic",
  "spl-token-confidential-transfer-proof-extraction",
  "spl-token-confidential-transfer-proof-generation 0.2.0",
@@ -6225,7 +6296,7 @@ dependencies = [
  "spl-elgamal-registry",
  "spl-memo",
  "spl-pod",
- "spl-token",
+ "spl-token 7.0.0",
  "spl-token-confidential-transfer-ciphertext-arithmetic",
  "spl-token-confidential-transfer-proof-extraction",
  "spl-token-confidential-transfer-proof-generation 0.3.0",
@@ -6372,6 +6443,12 @@ name = "stable_deref_trait"
 version = "1.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a8f112729512f8e442d81f95a8a7ddf2b7c6b8a1a6f509a95864142b30cab2d3"
+
+[[package]]
+name = "static_assertions"
+version = "1.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a2eb9349b6444b326872e140eb1cf5e7c522154d69e7a0ffb0fb81c06b37543f"
 
 [[package]]
 name = "strsim"
@@ -6876,6 +6953,18 @@ name = "typenum"
 version = "1.18.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1dccffe3ce07af9386bfd29e80c0ab1a8205a2fc34e4bcd40364df902cfa8f3f"
+
+[[package]]
+name = "uint"
+version = "0.10.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "909988d098b2f738727b161a106cfc7cab00c539c2687a8836f8e565976fb53e"
+dependencies = [
+ "byteorder",
+ "crunchy",
+ "hex",
+ "static_assertions",
+]
 
 [[package]]
 name = "unicase"
@@ -7524,21 +7613,7 @@ dependencies = [
  "thiserror 1.0.69",
  "tonic",
  "tonic-health",
- "yellowstone-grpc-proto 6.1.0",
-]
-
-[[package]]
-name = "yellowstone-grpc-proto"
-version = "2.0.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6b740e0601335c649640732e4cb4061a4ef4bb27017e8e76e4caa3c03566dd0e"
-dependencies = [
- "anyhow",
- "bincode",
- "prost",
- "protobuf-src",
- "tonic",
- "tonic-build",
+ "yellowstone-grpc-proto",
 ]
 
 [[package]]
@@ -7557,44 +7632,6 @@ dependencies = [
  "solana-transaction-status",
  "tonic",
  "tonic-build",
-]
-
-[[package]]
-name = "yellowstone-vixen-core"
-version = "0.3.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c19a5633b21e49d9a857d44d63220e99cbb7d82aaa82bfcacd98fed806a95860"
-dependencies = [
- "bs58",
- "thiserror 1.0.69",
- "yellowstone-grpc-proto 2.0.0",
- "yellowstone-vixen-proto",
-]
-
-[[package]]
-name = "yellowstone-vixen-proto"
-version = "0.3.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e1889a85923f71fda46773bc6ec1631ea3363e0964abe27236c807e8e02c1247"
-dependencies = [
- "prost",
-]
-
-[[package]]
-name = "yellowstone-vixen-raydium-amm-v4-parser"
-version = "0.3.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "808c6a2a51afef571f848be20e17def6bfea466044a361c5588e528281cb9743"
-dependencies = [
- "borsh 0.10.4",
- "num-derive",
- "num-traits",
- "prost",
- "prost-build",
- "solana-program",
- "thiserror 1.0.69",
- "tonic",
- "yellowstone-vixen-core",
 ]
 
 [[package]]

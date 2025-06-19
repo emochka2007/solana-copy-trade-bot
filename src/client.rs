@@ -1,20 +1,15 @@
 use crate::decoder;
-use crate::target_list::Targetlist;
-use solana_sdk::pubkey::Pubkey;
-use std::str::FromStr;
-use yellowstone_grpc_proto::geyser::{
-    SubscribeRequestFilterTransactions, SubscribeUpdateTransaction,
-};
-use yellowstone_grpc_proto::prost::bytes::Bytes;
+use crate::target_list::TargetList;
+use yellowstone_grpc_client::ClientTlsConfig;
+use yellowstone_grpc_proto::geyser::SubscribeRequestFilterTransactions;
 use {
     futures::{sink::SinkExt, stream::StreamExt},
     log::info,
     tokio::time::{Duration, interval},
-    tonic::transport::channel::ClientTlsConfig,
     yellowstone_grpc_client::GeyserGrpcClient,
     yellowstone_grpc_proto::prelude::{
-        CommitmentLevel, SubscribeRequest, SubscribeRequestFilterSlots, SubscribeRequestPing,
-        SubscribeUpdatePong, SubscribeUpdateSlot, subscribe_update::UpdateOneof,
+        CommitmentLevel, SubscribeRequest, SubscribeRequestPing, SubscribeUpdatePong,
+        SubscribeUpdateSlot, subscribe_update::UpdateOneof,
     },
 };
 
@@ -64,20 +59,22 @@ impl SolGrpcClient {
                 Ok::<(), anyhow::Error>(())
             },
             async move {
-                let target_list = Targetlist::new("target_list.txt")?;
-                let token_list = Targetlist::new("tokens_list.txt")?;
+                let target_list = TargetList::new("target_list.txt")?;
+                let token_list = TargetList::new("tokens_list.txt")?;
 
                 while let Some(message) = stream.next().await {
                     match message?.update_oneof.expect("valid message") {
                         UpdateOneof::Transaction(transaction) => {
                             // info!("slot received: {slot}");
-                            match decoder::decode_instruction(
+                            if decoder::decode_instruction(
                                 target_list.clone(),
                                 token_list.clone(),
                                 transaction,
-                            ) {
-                                Ok(_) => {}
-                                Err(_) => {}
+                            )
+                            .await
+                            .is_ok()
+                            {
+                                // info!("Succesfully parsed tx");
                             }
                         }
                         UpdateOneof::Slot(SubscribeUpdateSlot { slot, .. }) => {

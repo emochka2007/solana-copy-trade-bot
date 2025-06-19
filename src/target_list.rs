@@ -2,11 +2,11 @@ use std::fs;
 use std::io::{self, BufRead};
 
 #[derive(Clone)]
-pub struct Targetlist {
+pub struct TargetList {
     addresses: Vec<String>,
 }
 
-impl Targetlist {
+impl TargetList {
     pub fn new(file_path: &str) -> io::Result<Self> {
         let mut addresses = Vec::new();
 
@@ -18,19 +18,18 @@ impl Targetlist {
             addresses.push(line);
         }
 
-        Ok(Targetlist { addresses })
+        Ok(TargetList { addresses })
     }
 
     pub fn empty() -> Self {
         let addresses = Vec::<String>::new();
-        Targetlist { addresses }
+        TargetList { addresses }
     }
 
     pub fn length(self) -> usize {
         self.addresses.len()
     }
 
-    // Check if an address is in the Targetlist
     pub fn is_listed_on_target(&self, address: &str) -> bool {
         self.addresses.contains(&address.to_string())
     }
